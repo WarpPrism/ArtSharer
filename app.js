@@ -2,6 +2,9 @@ var express = require("express");
 var path = require("path");
 var app = express();
 
+var db = require('./model/db');
+var user = require('./model/users');
+
 app.set("views", "./views/");
 app.set("view engine", "jade");
 
