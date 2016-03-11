@@ -4,6 +4,7 @@ var app = express();
 
 var db = require('./model/db');
 var user = require('./model/users');
+var artWork = require('./model/artworks')
 
 app.set("views", "./views/");
 app.set("view engine", "jade");

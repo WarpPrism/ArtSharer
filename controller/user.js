@@ -122,11 +122,21 @@ exports.showSignIn = function(req, res) {
 	res.render("signin");
 }
 
-exports.handleSignIn = function(req, res) {
+exports.handleSignIn = function(req, res) {    //cookies之类的怎么弄
 	var email = req.body.email;
 	var password = req.body.password;
-	// userSignUp(email, password, req, res);
-	// deleteUser(email, req, res);
+	userSignIn(email, password, req, res);
+}
+
+exports.handleSignUp = function(req, res) {    //注册之后的跳转页面是啥？
+	var email = req.body.email;
+	var password = req.body.password;
+	userSignUp(email, password, req, res);
+}
+
+exports.handleUpdate = function(req, res) {
+	var email = req.body.email;
+	var password = req.body.password;
 	var userModify = {
 		'username' : 'rice',
 		'password' : '11111111',
@@ -137,7 +147,10 @@ exports.handleSignIn = function(req, res) {
 		'starArtists' : ['rice', 'xwz'],
 		'starWorks' : [1, 2]
 	};
+	updateUser(userModify, req, res);	
+}
 
-	updateUser(userModify, req, res);
-
+exports.handleDelete = function(req, res) {
+	var email = req.body.email;
+	deleteUser(email, req, res);
 }
