@@ -20,8 +20,13 @@
   },
   "homepage": "https://github.com/WarpPrism/ArtSharer#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
+    "express-fileupload": "0.0.4",
+    "express-session": "^1.13.0",
+    "formidable": "^1.0.17",
     "jade": "^1.11.0",
+    "multer": "^1.1.0",
     "path": "^0.12.7",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
