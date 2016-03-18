@@ -6,14 +6,16 @@ var fs = require('fs');
 var createWork = function(req, res) {
 	var author = req.params.username;
 	var workTitle = req.body.workTitle;
+	var filepath = "public/imgs/" + req.file.filename    // + "." + req.file.originalname.split('.')[1];
 	mongoose.model('ArtWork').find({ 'workTitle' : workTitle }, function(err, works) {
 		if (err) {
 			console.log(err);
 		} else {
 			if (works.length) {
-				res.send('artWork exist!');
+				fs.unlink(filepath, function() {
+					res.send("file exist!");
+				});
 			} else {
-				var filepath = "public/imgs/" + req.file.filename + "." + req.file.originalname.split('.')[1];
 				mongoose.model('ArtWork').create({
 					'workTitle' : workTitle,
 					'author' : author,
@@ -64,7 +66,10 @@ var createWork = function(req, res) {
 var deleteWork = function(req, res) {
 	var workTitle = req.body.workTitle;
 	var author = req.params.username;
-	mongoose.model('ArtWork').find({ 'workTitle' : workTitle }, function(err, works) {
+	mongoose.model('ArtWork').find({
+		'workTitle' : workTitle,
+		'author' : author
+	}, function(err, works) {
 		if (err) {
 			console.log(err);
 		} else {
@@ -81,6 +86,66 @@ var deleteWork = function(req, res) {
 						});
 					}
 				});
+			}
+		}
+	});
+}
+
+var updateWork = function(req, res) {
+	var workTitle = req.body.workTitle;
+	var author = req.params.username;
+	var tags = req.body.tags.split(',');
+	var filepath = "public/imgs/" + req.file.filename;
+	mongoose.model('ArtWork').find({
+		'workTitle' : workTitle,
+		'author' : author
+	}, function(err, works) {
+		if (err) {
+			console.log(err);
+		} else {
+			if (!works.length) {
+				fs.unlink(filepath, function() {
+					res.send("img not found!");
+				});
+			} else {
+				fs.unlink(works[0].url, function() {});
+				var workModify = {
+					'tags' : tags,
+					'url' : filepath,
+					'lastModified' : new Date()
+				}
+				works[0].update({
+					$set : workModify
+				}, function(err, work) {
+					if (err) {
+						console.log(err);
+					} else {
+						res.send("update succeed!");
+					}
+				});
+			}
+		}
+	});
+}
+
+var queryWorks = function(req, res) {
+	var author = req.body.author;
+	var workTitle = req.body.workTitle;
+	var query = {};
+	if (author) {
+		query.author = author;
+	}
+	if (workTitle) {
+		query.workTitle = workTitle;
+	}
+	mongoose.model('ArtWork').find(query, function (err, works) {
+		if (err) {
+			console.log(err);
+		} else {
+			if (!works.length) {
+				res.send('img not found!');
+			} else {
+				res.json(works);
 			}
 		}
 	});
@@ -133,6 +198,7 @@ exports.handleDelete = function(req, res) {
 }
 
 exports.handleUpdate = function(req, res) {
+	updateWork(req, res);
 	var workTitle = req.body.workTitle;
 	var author = req.body.author;
 	var url = '#';
@@ -153,9 +219,8 @@ exports.handleUpdate = function(req, res) {
 		'lastModified' : lastModified,
 		'tags' : tags
 	};
-	createWork(newArtWork, req, res);
 }
 
-exports.handleQuery = function(req, res) {    //查询之后的结果是怎么返回的？
-
+exports.handleQuery = function(req, res) {    //需要确认一下具体的返回形式
+	queryWorks(req, res);
 }

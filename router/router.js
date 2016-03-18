@@ -15,8 +15,8 @@ module.exports = function(app) {
 	app.get("/signup", User.showSignUp);
 	app.get("/user/:username", User.showUserPage);
 	app.get("/user/:username/:worktitle", ArtWork.showWorkPage);
-	// User operation
 	app.get("/logout", User.handleLogout);
+	// User operation
 	app.post("/handle_login", User.handleLogin);
 	app.post("/handle_sign_up", User.handleSignUp);
 	app.post("/handle_user_query", User.handleQuery);
