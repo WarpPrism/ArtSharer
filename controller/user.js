@@ -1,3 +1,4 @@
+
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -16,7 +17,7 @@ var userSignIn = function(username, password, req, res) {
 		} else {
 			if (!users.length) {
 				console.log('login failed!');
-				res.redirect('/login');
+				res.render("signIn", {res_text: "LogIn Failed!"});
 			} else {
 				req.session.username = username;
 				console.log('login succeed!');

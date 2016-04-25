@@ -1,5 +1,8 @@
 extends ./layout
 
+block page-head
+	script(type='text/javascript').
+		var res_text = "#{res_text}";
 block content
 	.ui.middle.aligned.center.aligned.grid#wrapper
 
