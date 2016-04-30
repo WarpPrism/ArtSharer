@@ -51,8 +51,24 @@
 	__webpack_require__(162);
 
 	var Header = React.createClass({ displayName: "Header",
+		getInitialState: function () {
+			return null;
+		},
+		componentDidMount: function () {
+			if (username != "") {
+				$("#header_sign_in").hide();
+				$("#header_sign_out").show();
+				$("#header_user").show();
+				$("#header_pc").show();
+			} else {
+				$("#header_sign_in").show();
+				$("#header_sign_out").hide();
+				$("#header_user").hide();
+				$("#header_pc").hide();
+			}
+		},
 		render: function () {
-			return React.createElement("div", { className: "ui top fixed menu" }, React.createElement("a", { className: "item", href: "/" }, React.createElement("img", { src: "imgs/favicon.png" })), React.createElement("a", { className: "item", href: "/" }, React.createElement("i", { className: "home icon" }), "Home"), React.createElement("a", { className: "item", href: "/personal_center" }, React.createElement("i", { className: "user icon" }), "Personal Center"), React.createElement("div", { className: "right menu" }, React.createElement("a", { className: "ui item", href: "/login" }, React.createElement("i", { className: "sign in icon" }), "Sign In")));
+			return React.createElement("div", { className: "ui top fixed menu" }, React.createElement("a", { className: "item", href: "/" }, React.createElement("img", { src: "imgs/favicon.png" })), React.createElement("a", { className: "item", href: "/" }, React.createElement("i", { className: "home icon" }), "Home"), React.createElement("a", { id: "header_pc", className: "item", href: "/user/" + username }, React.createElement("i", { className: "user icon" }), "Personal Center"), React.createElement("div", { className: "right menu" }, React.createElement("a", { id: "header_sign_in", className: "ui item", href: "/login" }, React.createElement("i", { className: "sign in icon" }), "Sign In"), React.createElement("a", { id: "header_user", className: "ui item", href: "/user/" + username }, React.createElement("i", { className: "user icon" }), username), React.createElement("a", { id: "header_sign_out", className: "ui item", href: "/logout" }, React.createElement("i", { className: "sign out icon" }), "Sign Out")));
 		}
 	});
 
@@ -19993,8 +20009,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./layout.css", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./layout.css");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./layout.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./layout.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -20012,7 +20028,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n    height: 100%;\n    width: 100%;\n    position: relative;\n}\n#header .menu {\n    height: 50px;\n    background: #eeeeee;\n}\n\n#footer {\n    /*width: 100%;\n    position: fixed;\n    bottom: 0;\n    left: 0;\n    right: 0;*/\n}\n#footer div.segment {\n    background: #eeeeee;\n}\n#footer a {\n    margin: 0 20px;\n}\n#footer a span {\n    text-decoration: underline;\n}\n#footer div.segment {\n    border-top: solid 1px #dddddd;\n}", ""]);
+	exports.push([module.id, "body {\n    height: 100%;\n    width: 100%;\n    position: relative;\n}\n#header .menu {\n    height: 50px;\n    background: #eeeeee;\n}\n\n#footer {\n    width: 100%;\n    position: fixed;\n    bottom: 0;\n    left: 0;\n    right: 0;\n}\n#footer div.segment {\n    background: #eeeeee;\n}\n#footer a {\n    margin: 0 20px;\n}\n#footer a span {\n    text-decoration: underline;\n}\n#footer div.segment {\n    border-top: solid 1px #dddddd;\n}", ""]);
 
 	// exports
 

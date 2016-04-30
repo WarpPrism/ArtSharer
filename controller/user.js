@@ -200,20 +200,22 @@ exports.handleDelete = function(req, res) {
 };
 
 exports.showUserPage = function(req, res) {
+	//console.log(req.params);
 	mongoose.model('User').findOne({ 'username' : req.params.username }, function(err, user) {
 		if (err) {
 			console.log(err);
 		} else {
-			// res.render("userpage", {
-			// 	username : user.username,
-			// 	descript : user.dscript,
-			// 	artworks : user.artworks,
-			// });
-			res.json({
+			res.render("personalCenter", {
+				username : user.username,
+				email: user.email,
+				descript : user.dscript,
+				artworks : user.artworks
+			});
+			/*res.json({
 				username : user.username,
 				descript : user.descript,
 				artworks : user.artworks
-			});
+			});*/
 		}
 	});
 };

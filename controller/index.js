@@ -3,8 +3,9 @@
 // index page
 exports.showIndex = function(req, res) {
 	if (req.session.username) {
-		res.render("index");
+		//console.log(req.session);
+		res.render("index", {username:req.session.username});
 	} else {
-		res.send("please login first");
+		res.render("index");
 	}
 };
