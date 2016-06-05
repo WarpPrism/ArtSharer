@@ -227,10 +227,9 @@ exports.showUserPage = function(req, res) {
     });
 };
 
-//渲染个人作品列表页
+//渲染作品列表页
 exports.showWorkListPage = function(req, res) {
-    var username = req.params.username;
-    mongoose.model('User').find({ 'username' : username }, function(err, users) {
+    mongoose.model('User').find({}, function(err, users) {
         if (err) {
             console.log(err);
         } else {

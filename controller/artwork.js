@@ -241,8 +241,21 @@ exports.showWorkCreatePage = function(req, res) {
     } else {
         res.send("you can't access this page");
     }
-    
 }
+
+//渲染作品列表页
+exports.showWorkListPage = function(req, res) {
+    mongoose.model('ArtWork').find({}, function(err, works) {
+        if (err) {
+            console.log(err);
+        } else {
+            var count = works.length;
+            res.render("artworks", {
+                'workCount' : count
+            });
+        }
+    });
+};
 
 
 exports.handleCreate = function(req, res) {
