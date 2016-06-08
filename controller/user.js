@@ -66,8 +66,7 @@ var userQuery = function(req, res) {
             console.log(err);
         } else {
             if (!users.length) {
-                console.log('user not exist!');
-                res.redirect('/login');
+                res.json([]);
             } else {
                 res.json(users);
             }
