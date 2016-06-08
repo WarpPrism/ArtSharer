@@ -151,7 +151,7 @@ var queryWorks = function(req, res) {
             console.log(err);
         } else {
             if (!works.length) {
-                res.send('img not found!');
+                res.json([]);
             } else {
                 res.json(works);
             }
