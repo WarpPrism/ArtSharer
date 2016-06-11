@@ -134,6 +134,29 @@ var deleteUser = function(username, req, res) {
     });
 };
 
+var hanldeActiveUsersQuery = function(req, res) {
+    mongoose.model('User').find({}, function(err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            var result = [];
+            var now = new Date();
+            for (var i = 0; i < users.length; i++) {
+                if (now - users[i].lastActiveTime < 604800000) {
+                    result.push(users[i]);
+                    if (result.length == 10) {
+                        break;
+                    }
+                }
+            }
+            result.sort(function(x, y) {
+                return x.lastActiveTime < y.lastActiveTime;
+            });
+            res.json(result);
+        }
+    });
+}
+
 //渲染用户登陆页，如果用户已登陆，则返回提示信息
 exports.showLogin = function(req, res) {
     if (req.session.username) {
@@ -225,3 +248,7 @@ exports.showUserPage = function(req, res) {
         }
     });
 };
+
+exports.handleActiceUsersQuery = function(req, res) {
+    hanldeActiveUsersQuery(req, res);
+}

@@ -43,7 +43,21 @@ var createWork = function(req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        res.send("artwork create succeed!");
+                        mongoose.model('User').find({'username' : author}, function(err, users) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                users[0].update({
+                                    $set : {'lastActiveTime' : new Date()}
+                                }, function(err, work) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.send("artwork create succeed!");
+                                    }
+                                })
+                            }
+                        });
                     }
                 });
             }
@@ -125,8 +139,22 @@ var updateWork = function(req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        res.json({
-                            'url' : new_url
+                        mongoose.model('User').find({'username' : author}, function(err, users) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                users[0].update({
+                                    $set : {'lastActiveTime' : new Date()}
+                                }, function(err, work) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        res.json({
+                                            'url' : new_url
+                                        });
+                                    }
+                                })
+                            }
                         });
                     }
                 });

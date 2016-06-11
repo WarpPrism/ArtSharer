@@ -7,6 +7,7 @@ var userSchema = mongoose.Schema({
 	'artworks' : Array,
 	'followers' : Array,
 	'starArtists' : Array,
-	'starWorks' : Array
+	'starWorks' : Array,
+	'lastActiveTime' : Date
 });
 mongoose.model('User', userSchema);

@@ -26,6 +26,7 @@ module.exports = function(app) {
 	app.post("/handle_user_query", User.handleQuery);
 	app.post("/handle_user_update", User.handleUpdate);
 	app.post("/handle_user_delete", User.handleDelete);
+	app.get("/handle_active_users_query", User.handleActiceUsersQuery);
 
 	// ArtWork operation
 	app.post("/:username/handle_artwork_create", ArtWork.handleCreate);
